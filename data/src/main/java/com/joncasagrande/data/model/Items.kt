@@ -1,9 +1,9 @@
 package com.joncasagrande.data.model
 
 data class Items(
-    val title: String,
-    val description: String,
-    val type: String,
-    val properties: Properties,
-    val required: List<String>
+    val title: String? = null,
+    val description: String? = null,
+    val type: String? = null,
+    val properties: Properties? = null,
+    val required: List<String>? = null
 )
