@@ -1,7 +1,7 @@
 package com.joncasagrande.data.api
 
 import com.joncasagrande.data.api.HttpRoutes.GITHUB_API
-import com.joncasagrande.data.model.Items
+import com.joncasagrande.data.model.Repos
 import com.joncasagrande.data.utils.NetworkResult
 import com.joncasagrande.data.utils.toResult
 import io.ktor.client.HttpClient
@@ -13,7 +13,7 @@ class GithubApiImpl@Inject constructor(
     private val client: HttpClient
 ) : GithubApi {
 
-    override suspend fun fetchRepos(user: String): NetworkResult<List<Items>> {
+    override suspend fun fetchRepos(user: String): NetworkResult<List<Repos>> {
         return client.get {
             url("$GITHUB_API/users/$user/repos")
         }.toResult()

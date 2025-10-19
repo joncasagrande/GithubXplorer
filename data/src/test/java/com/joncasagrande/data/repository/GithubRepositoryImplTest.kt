@@ -1,8 +1,7 @@
 package com.joncasagrande.data.repository
 
 import com.joncasagrande.data.api.GithubApi
-import com.joncasagrande.data.model.GitRepos
-import com.joncasagrande.data.model.Items
+import com.joncasagrande.data.model.Repos
 import com.joncasagrande.data.utils.NetworkResult
 import com.joncasagrande.data.utils.Resource
 import io.mockk.MockKAnnotations
@@ -28,16 +27,16 @@ class GithubRepositoryImplTest {
     @Test
     fun getDogListResourceSuccess() = runTest {
         //given
-        val gitRepo = emptyList<Items>()
+        val gitRepo = emptyList<Repos>()
 
         coEvery { githubApi.fetchRepos("test") } returns NetworkResult.Success(gitRepo)
 
         //when
-        val result = githubRepository.getUserRepos("test") as Resource.Success<GitRepos>
+        val result = githubRepository.getUserRepos("test") as Resource.Success<List<Repos>>
 
         //then
        assertEquals(
-             result.value.items?.isEmpty(),
+             result.value.isEmpty(),
              true
         )
     }
@@ -45,16 +44,16 @@ class GithubRepositoryImplTest {
     @Test
     fun getDogListResourceSuccessWithItem() = runTest {
         //given
-        val gitRepo = listOf(Items())
+        val gitRepo =listOf(Repos())
 
         coEvery { githubApi.fetchRepos("test") } returns NetworkResult.Success(gitRepo)
 
         //when
-        val result = githubRepository.getUserRepos("test") as Resource.Success<GitRepos>
+        val result = githubRepository.getUserRepos("test") as Resource.Success<List<Repos>>
 
         //then
         assertEquals(
-            result.value.items?.isNotEmpty(),
+            result.value.isNotEmpty(),
             true
         )
     }
@@ -65,7 +64,7 @@ class GithubRepositoryImplTest {
         coEvery { githubApi.fetchRepos("") } returns NetworkResult.Error(Exception("error"))
 
         //when
-        val result = githubRepository.getUserRepos("") as Resource.Error<GitRepos>
+        val result = githubRepository.getUserRepos("") as Resource.Error<List<Repos>>
 
 
         //then

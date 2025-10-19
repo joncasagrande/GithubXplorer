@@ -1,6 +1,6 @@
 package com.joncasagrande.data.api
 
-import com.joncasagrande.data.model.Items
+import com.joncasagrande.data.model.Repos
 import com.joncasagrande.data.utils.NetworkResult
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.mock.MockEngine
@@ -44,7 +44,7 @@ class GithubApiImplTest {
             }
             githubApi = GithubApiImpl(client)
            val result =  githubApi.fetchRepos("")
-            assertEquals(true, (result as NetworkResult.Success<List<Items>>).body.isNotEmpty())
+            assertEquals(true, (result as NetworkResult.Success<List<Repos>>).body.isNotEmpty())
         }
     }
 
@@ -70,7 +70,7 @@ class GithubApiImplTest {
             }
             githubApi = GithubApiImpl(client)
             val result =  githubApi.fetchRepos("")
-            assertEquals("Repo not found.", (result as NetworkResult.Error<List<Items>>).error.message)
+            assertEquals("Repo not found.", (result as NetworkResult.Error<List<Repos>>).error.message)
         }
     }
 
@@ -96,7 +96,7 @@ class GithubApiImplTest {
             }
             githubApi = GithubApiImpl(client)
             val result =  githubApi.fetchRepos("")
-            assertEquals("Server Disruption! We are on fixing it.", (result as NetworkResult.Error<List<Items>>).error.message)
+            assertEquals("Server Disruption! We are on fixing it.", (result as NetworkResult.Error<List<Repos>>).error.message)
         }
     }
 
