@@ -2,6 +2,7 @@ package com.joncasagrande.data.repository
 
 import com.joncasagrande.data.api.GithubApi
 import com.joncasagrande.data.model.GitRepos
+import com.joncasagrande.data.model.Items
 import com.joncasagrande.data.utils.NetworkResult
 import com.joncasagrande.data.utils.Resource
 import io.mockk.MockKAnnotations
@@ -13,50 +14,58 @@ import org.junit.Before
 import org.junit.Test
 
 class GithubRepositoryImplTest {
-    lateinit var dogRepository: GithubRepository
+    lateinit var githubRepository: GithubRepository
 
     @MockK
-    lateinit var dogApi: GithubApi
+    lateinit var githubApi: GithubApi
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        dogRepository = GithubRepositoryImpl(dogApi)
+        githubRepository = GithubRepositoryImpl(githubApi)
     }
 
     @Test
     fun getDogListResourceSuccess() = runTest {
         //given
-        val gitRepo = GitRepos()
+        val gitRepo = emptyList<Items>()
 
-        coEvery { dogApi.fetchRepos("test") } returns NetworkResult.Success(gitRepo)
+        coEvery { githubApi.fetchRepos("test") } returns NetworkResult.Success(gitRepo)
 
         //when
-        val result = dogRepository.getUserRepos("test") as Resource.Success<GitRepos>
+        val result = githubRepository.getUserRepos("test") as Resource.Success<GitRepos>
 
         //then
-       /* assertEquals(
-            // result.value.items.type.isNotBlank(),
-            // true
+       assertEquals(
+             result.value.items?.isEmpty(),
+             true
         )
-        assertEquals(
-        //     result.value.message?.first(),
-          //   "https://images.dog.ceo/breeds/terrier-wheaten/n02098105_1228.jpg"
-        )
+    }
 
+    @Test
+    fun getDogListResourceSuccessWithItem() = runTest {
+        //given
+        val gitRepo = listOf(Items())
+
+        coEvery { githubApi.fetchRepos("test") } returns NetworkResult.Success(gitRepo)
+
+        //when
+        val result = githubRepository.getUserRepos("test") as Resource.Success<GitRepos>
+
+        //then
         assertEquals(
-            // result.value.status,
-            // "success"
-        )*/
+            result.value.items?.isNotEmpty(),
+            true
+        )
     }
 
     @Test
     fun getDogListResourceError() = runTest {
         //given
-        coEvery { dogApi.fetchRepos("") } returns NetworkResult.Error(Exception("error"))
+        coEvery { githubApi.fetchRepos("") } returns NetworkResult.Error(Exception("error"))
 
         //when
-        val result = dogRepository.getUserRepos("") as Resource.Error<GitRepos>
+        val result = githubRepository.getUserRepos("") as Resource.Error<GitRepos>
 
 
         //then
@@ -69,5 +78,4 @@ class GithubRepositoryImplTest {
             "api error"
         )
     }
-
 }

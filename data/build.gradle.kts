@@ -58,4 +58,5 @@ dependencies {
     testImplementation(libs.mockk.agent)
 
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.ktor.client.mock)
 }
