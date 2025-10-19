@@ -18,12 +18,10 @@ kspVersion = "2.2.20-2.0.4"
 
 ktorClient = "3.3.1"
 
-firebaseAppdistributionGradle = "5.1.1"
 
 coilCompose = "3.3.0"
 
 mockkAndroid = "1.14.6"
-runtimeLivedata = "1.8.3"
 navigationCompose = "2.9.5"
 
 [libraries]
@@ -56,8 +54,6 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 ktor-client-mock = { module = "io.ktor:ktor-client-mock", version.ref = "ktorClient" }
 ktor-serialization-kotlinx-gson = { module = "io.ktor:ktor-serialization-gson", version.ref = "ktorClient" }
 
-coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
-coil3-coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
 
 mockk-agent = { module = "io.mockk:mockk-agent", version.ref = "mockkAndroid" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockkAndroid" }
