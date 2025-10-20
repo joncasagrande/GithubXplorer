@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "GithubXplorer"
 include(":app")
+include(":domain")
 include(":data")
