@@ -19,6 +19,7 @@ class MainActivityViewModel @Inject constructor(
     private val _eventData = MutableLiveData<EventState>()
     val eventData: LiveData<EventState> = _eventData
 
+    private var listRepos: List<GithubUi> = emptyList()
     fun loadRepos() {
         _eventData.value = EventState(showLoading = true)
         viewModelScope.launch {
@@ -26,12 +27,12 @@ class MainActivityViewModel @Inject constructor(
                 is GithubRepoUseCase.Event.Success -> {
                     if (result.listDogs.isEmpty())
                         EventState(isEmpty = true)
-                    else
-                        EventState(listDogUi = result.listDogs.map {
+                    else {
+                        listRepos = result.listDogs.map {
                             GithubUi(
                                 it.name,
                                 it.image.orEmpty(),
-                                        it.description,
+                                it.description,
                                 0,
                                 it.forks,
                                 it.lastUpdated,
@@ -39,10 +40,26 @@ class MainActivityViewModel @Inject constructor(
                                 it.license,
                                 it.ownerName
                             )
-                        })
+                        }
+                        EventState(githubUis = listRepos)
+                    }
                 }
 
                 is GithubRepoUseCase.Event.Error -> EventState(showError = result.error)
+            }
+        }
+    }
+
+    fun searchBy(term: String) {
+        _eventData.value = when {
+            term.isEmpty() -> EventState(githubUis = listRepos)
+            else -> {
+                val result = listRepos.filter { it.language?.contains(term.trim()) == true }
+                if (result.isEmpty()) {
+                    EventState(isEmpty = true)
+                } else {
+                    EventState(githubUis = result)
+                }
             }
         }
     }

@@ -19,4 +19,17 @@ class GithubRepositoryImpl @Inject constructor(
             )
         } as Resource<List<Repos>>
     }
+
+    override suspend fun fetchLanguage(
+        project: String,
+        repo: String
+    ): Resource<Map<String, Int>> {
+        return when (val data = api.fetchLanguage(project, repo)) {
+            is NetworkResult.Success -> Resource.Success(data.body)
+            is NetworkResult.Error -> Resource.Error(
+                "api error",
+                data.error
+            )
+        } as Resource<Map<String, Int>>
+    }
 }

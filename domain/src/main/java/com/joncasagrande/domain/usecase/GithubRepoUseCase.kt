@@ -21,4 +21,11 @@ class GithubRepoUseCase @Inject constructor(
             is Resource.Error -> Event.Error(data.error)
         }
     }
+
+    suspend fun getLangRepos(owner: String, repo: String): List<String>? {
+        return when (val data = repository.fetchLanguage(owner,repo)) {
+            is Resource.Success -> data.value.entries.toList()
+            is Resource.Error -> emptyList()
+        } as List<String>?
+    }
 }

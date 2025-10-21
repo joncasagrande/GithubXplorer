@@ -15,7 +15,11 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -38,13 +42,34 @@ fun HomeFragment(
 ) {
     val eventState = viewModel.eventData.observeAsState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
+
+    var query by remember { mutableStateOf("") }
+    var searchBarVisible by remember { mutableStateOf(false) }
+
     LaunchedEffect(key1 = Unit) {
         viewModel.loadRepos()
     }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { GitToolbar("Github Repositories", scrollBehavior) }
+        topBar = {
+            GitToolbar(
+                "Github Repositories",
+                query = query,
+                {
+                    searchBarVisible = !searchBarVisible
+                    if(!searchBarVisible){
+                        viewModel.searchBy("")
+                    }
+                },
+                {
+                    query = it
+                    viewModel.searchBy(it)
+                },
+                isSearching = searchBarVisible,
+                scrollBehavior
+            )
+        }
     ) { innerPadding ->
         PullToRefreshBox(
             isRefreshing = eventState.value?.showLoading == true,
@@ -54,13 +79,13 @@ fun HomeFragment(
             modifier = Modifier.padding(innerPadding)
         ) {
             when {
-                eventState.value?.listDogUi?.isNotEmpty() == true -> {
-                    Column{
+                eventState.value?.githubUis?.isNotEmpty() == true -> {
+                    Column {
                         LazyVerticalGrid(
                             columns = GridCells.Fixed(2),
                             contentPadding = PaddingValues(8.dp)
                         ) {
-                            val dogList: List<GithubUi> = eventState.value?.listDogUi ?: emptyList()
+                            val dogList: List<GithubUi> = eventState.value?.githubUis ?: emptyList()
                             items(dogList.size) { index ->
                                 dogList.let {
                                     Card(

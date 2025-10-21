@@ -7,7 +7,7 @@ data class GithubUi(
     val stars: Int,
     val forks: Int,
     val lastUpdated: String,
-    val language: String? = null,
+    val language: List<String>? = null,
     val license: String? = null,
     val ownerName: String
 )

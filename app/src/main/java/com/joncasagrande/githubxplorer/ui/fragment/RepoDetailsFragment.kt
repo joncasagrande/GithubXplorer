@@ -157,7 +157,7 @@ fun RepoDetailPagePreview() {
             stars = 1234,
             forks = 567,
             lastUpdated = "2 days ago",
-            language = "Kotlin",
+            language = listOf("Kotlin"),
             license = "MIT",
             avatar = "https://example.com/avatar.png",
             ownerName = "Google"

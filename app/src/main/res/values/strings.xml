@@ -4,4 +4,5 @@
     <string name="no_dog_found">404 repo not found</string>
     <string name="empty_list">List is empty</string>
     <string name="back">Back</string>
+    <string name="search">Search icon</string>
 </resources>

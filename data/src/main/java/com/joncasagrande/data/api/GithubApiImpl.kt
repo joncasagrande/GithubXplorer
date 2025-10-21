@@ -18,4 +18,10 @@ class GithubApiImpl@Inject constructor(
             url("$GITHUB_API/repositories")
         }.toResult()
     }
+
+    override suspend fun fetchLanguage(project:String,repo:String): NetworkResult<Map<String, Int>> {
+        return client.get {
+            url("$GITHUB_API/repos/$project/$repo/languages")
+        }.toResult()
+    }
 }
