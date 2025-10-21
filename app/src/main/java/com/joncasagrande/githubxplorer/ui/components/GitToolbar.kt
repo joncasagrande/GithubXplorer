@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat.getString
 import com.joncasagrande.githubxplorer.R
@@ -39,7 +40,7 @@ fun InnerToolbar(
 ) {
     MediumTopAppBar(
         modifier = Modifier.wrapContentSize(),
-        title = { Text(title) },
+        title = { Text(title, overflow = TextOverflow.Ellipsis) },
         scrollBehavior = scrollBehavior,
         navigationIcon = {
             IconButton(onClick = onBackClick) {

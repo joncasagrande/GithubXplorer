@@ -1,6 +1,5 @@
 package com.joncasagrande.domain.usecase
 
-import com.joncasagrande.data.model.GithubRepos
 import com.joncasagrande.data.model.Owner
 import com.joncasagrande.data.model.Repos
 import com.joncasagrande.data.repository.GithubRepository
@@ -10,7 +9,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
@@ -34,9 +33,6 @@ class GithubRepoUseCaseTest {
     fun executeUseCaseWithSuccess() = runTest {
         //given
         val repos =
-            GithubRepos(
-                10,
-                false,
                 listOf(
                     Repos(
                         owner = Owner(avatarUrl = "avatar_url"),
@@ -47,7 +43,6 @@ class GithubRepoUseCaseTest {
                     )
                 )
 
-            )
         coEvery { repository.getRepos() } returns Resource.Success(repos)
 
         //when
