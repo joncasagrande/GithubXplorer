@@ -12,8 +12,8 @@ class GithubRepoMapper {
                 name = repos.name.orEmpty(),
                 forks = repos.forksCount ?: 0,
                 watchers = repos.watchers ?: 0,
-                lang = repos.language.orEmpty()
-
+                lang = repos.language.orEmpty(),
+                description = repos.description.orEmpty()
             )
             githubReposDtos.add(githubReposDto)
         }

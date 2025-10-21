@@ -5,5 +5,6 @@ data class GithubReposDto(
     val name: String,
     val forks: Int,
     val watchers: Int,
-    val lang: String
+    val lang: String,
+    val description: String
 )
