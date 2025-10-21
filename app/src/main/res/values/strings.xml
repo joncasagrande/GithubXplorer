@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GithubXplorer</string>
+    <string name="wait">Wait…</string>
+    <string name="no_dog_found">404 repo not found</string>
+    <string name="empty_list">List is empty</string>
+    <string name="back">Back</string>
 </resources>

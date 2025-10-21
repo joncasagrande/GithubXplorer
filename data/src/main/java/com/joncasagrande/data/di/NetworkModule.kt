@@ -1,5 +1,6 @@
 package com.joncasagrande.data.di
 
+import com.google.gson.FieldNamingPolicy
 import com.joncasagrande.data.api.GithubApi
 import com.joncasagrande.data.api.GithubApiImpl
 import com.joncasagrande.data.repository.GithubRepository
@@ -30,6 +31,8 @@ object NetworkModule {
                 gson {
                     setPrettyPrinting()
                     disableHtmlEscaping()
+                    setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+
                 }
             }
             install(Logging) {

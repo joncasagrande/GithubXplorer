@@ -1,0 +1,44 @@
+package com.joncasagrande.githubxplorer.ui.components
+
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
+import com.joncasagrande.githubxplorer.R
+import com.joncasagrande.githubxplorer.ui.model.GithubUi
+import com.joncasagrande.githubxplorer.ui.theme.GithubXplorerTheme
+
+
+@Composable
+fun GithubCard(dogUi: GithubUi, modifier: Modifier = Modifier) {
+    Card(
+        modifier = modifier.padding(4.dp),
+    ) {
+        AsyncImage(
+            model = dogUi.avatar,
+            contentDescription = dogUi.name,
+            placeholder = painterResource(R.drawable.ic_launcher_foreground),
+            contentScale = ContentScale.FillBounds,
+        )
+        Text(dogUi.name, modifier= Modifier.padding(8.dp))
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DogPreview() {
+    GithubXplorerTheme {
+        GithubCard(
+            GithubUi(
+                "GithubXplorer",
+                "https://images.dog.ceo/breeds/terrier-wheaten/n02098105_1228.jpg"
+            )
+        )
+    }
+}

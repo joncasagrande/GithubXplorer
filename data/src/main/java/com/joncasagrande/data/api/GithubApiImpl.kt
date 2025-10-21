@@ -15,7 +15,7 @@ class GithubApiImpl@Inject constructor(
 
     override suspend fun fetchRepos(): NetworkResult<GithubRepos> {
         return client.get {
-            url("$GITHUB_API/search/repositories?q=Q")
+            url("$GITHUB_API/search/repositories?q=A")
         }.toResult()
     }
 }
