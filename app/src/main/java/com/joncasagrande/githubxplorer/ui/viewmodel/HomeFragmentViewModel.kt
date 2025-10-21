@@ -30,7 +30,14 @@ class MainActivityViewModel @Inject constructor(
                         EventState(listDogUi = result.listDogs.map {
                             GithubUi(
                                 it.name,
-                                it.image.orEmpty()
+                                it.image.orEmpty(),
+                                        it.description,
+                                0,
+                                it.forks,
+                                it.lastUpdated,
+                                it.lang,
+                                it.license,
+                                it.ownerName
                             )
                         })
                 }

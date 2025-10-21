@@ -44,8 +44,15 @@ fun DogPreview() {
     GithubXplorerTheme {
         GithubCard(
             GithubUi(
-                "GithubXplorer",
-                "https://images.dog.ceo/breeds/terrier-wheaten/n02098105_1228.jpg"
+                name = "Jetpack Compose",
+                description = "Jetpack Compose is Android's modern toolkit for building native UIs.",
+                stars = 1234,
+                forks = 567,
+                lastUpdated = "2 days ago",
+                language = "Kotlin",
+                license = "MIT",
+                avatar = "https://example.com/avatar.png",
+                ownerName = "Google"
             )
         )
     }
