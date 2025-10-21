@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
@@ -18,19 +19,28 @@ import com.joncasagrande.githubxplorer.ui.theme.GithubXplorerTheme
 
 
 @Composable
-fun GithubCard(dogUi: GithubUi, modifier: Modifier = Modifier) {
+fun GithubCard(githubUi: GithubUi, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier.padding(4.dp)
     ) {
         AsyncImage(
-            model = dogUi.avatar,
-            contentDescription = dogUi.name,
+            model = githubUi.avatar,
+            contentDescription = githubUi.name,
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
             contentScale = ContentScale.Crop,
-            modifier = Modifier.height(100.dp)
+            modifier = Modifier.height(120.dp)
         )
         Text(
-            dogUi.name,
+            githubUi.name,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+        )
+
+        Text(
+            githubUi.description,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),

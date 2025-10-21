@@ -43,7 +43,7 @@ fun HomeFragment(
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        topBar = { GitToolbar("Repositories", scrollBehavior) }
+        topBar = { GitToolbar("Github Repositories", scrollBehavior) }
     ) { innerPadding ->
 
         when {
