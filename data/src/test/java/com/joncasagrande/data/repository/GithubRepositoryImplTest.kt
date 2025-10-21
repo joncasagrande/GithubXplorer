@@ -1,7 +1,6 @@
 package com.joncasagrande.data.repository
 
 import com.joncasagrande.data.api.GithubApi
-import com.joncasagrande.data.model.GithubRepos
 import com.joncasagrande.data.model.Repos
 import com.joncasagrande.data.utils.NetworkResult
 import com.joncasagrande.data.utils.Resource
@@ -28,20 +27,17 @@ class GithubRepositoryImplTest {
     @Test
     fun getDogListResourceSuccess() = runTest {
         //given
-        val gitRepo = GithubRepos(
-            totalCount = 0,
-            false,
-            emptyList<Repos>()
-        )
+        val gitRepo = emptyList<Repos>()
+
 
                 coEvery { githubApi.fetchRepos() } returns NetworkResult.Success(gitRepo)
 
             //when
-            val result = githubRepository.getRepos() as Resource.Success<GithubRepos>
+            val result = githubRepository.getRepos() as Resource.Success<List<Repos>>
 
         //then
        assertEquals(
-             result.value.items.isEmpty(),
+             result.value.isEmpty(),
              true
         )
     }
@@ -49,20 +45,16 @@ class GithubRepositoryImplTest {
     @Test
     fun getDogListResourceSuccessWithItem() = runTest {
         //given
-        val gitRepo =GithubRepos(
-            totalCount = 0,
-            false,
-            listOf(Repos())
-        )
+        val gitRepo = listOf(Repos())
 
         coEvery { githubApi.fetchRepos() } returns NetworkResult.Success(gitRepo)
 
         //when
-        val result = githubRepository.getRepos() as Resource.Success<GithubRepos>
+        val result = githubRepository.getRepos() as Resource.Success<List<Repos>>
 
         //then
         assertEquals(
-            result.value.items.isNotEmpty(),
+            result.value.isNotEmpty(),
             true
         )
     }
