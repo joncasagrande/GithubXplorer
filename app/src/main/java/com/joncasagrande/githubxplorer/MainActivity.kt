@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.joncasagrande.githubxplorer.ui.fragment.HomeFragment
+import com.joncasagrande.githubxplorer.ui.fragment.RepoDetailsFragment
 import com.joncasagrande.githubxplorer.ui.model.GithubUi
 import com.joncasagrande.githubxplorer.ui.theme.GithubXplorerTheme
 import com.joncasagrande.githubxplorer.ui.viewmodel.MainActivityViewModel
@@ -58,13 +59,10 @@ class MainActivity : ComponentActivity() {
                     navController.navigate(Routes.ReposDescription.route)
                 }
             }
-           /* // Breed List
-            composable(Routes.BreedList.route) {
-                BreedListComposeFragment(navController, breedViewModel, breed) {
-                    dogUi = it
-                    navController.navigate(Routes.Breed.route)
-                }
-            }*/
+            // Breed List
+            composable(Routes.ReposDescription.route) {
+                RepoDetailsFragment(navController, githubUi!!)
+            }
         }
     }
 }

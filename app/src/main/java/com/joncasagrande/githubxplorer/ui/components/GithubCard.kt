@@ -1,5 +1,7 @@
 package com.joncasagrande.githubxplorer.ui.components
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
@@ -18,15 +20,21 @@ import com.joncasagrande.githubxplorer.ui.theme.GithubXplorerTheme
 @Composable
 fun GithubCard(dogUi: GithubUi, modifier: Modifier = Modifier) {
     Card(
-        modifier = modifier.padding(4.dp),
+        modifier = modifier.padding(4.dp)
     ) {
         AsyncImage(
             model = dogUi.avatar,
             contentDescription = dogUi.name,
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
-            contentScale = ContentScale.FillBounds,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.height(100.dp)
         )
-        Text(dogUi.name, modifier= Modifier.padding(8.dp))
+        Text(
+            dogUi.name,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+        )
     }
 }
 
