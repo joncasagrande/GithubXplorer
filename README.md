@@ -51,7 +51,7 @@
 - [ ] No
 
 ### References:
-- [GitHub API]([https://docs.github.com/en/rest?apiVersion=2022-11-28](https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#list-repositories-for-a-user))
+- [GitHub API](https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#list-repositories-for-a-user)
 
 - [Ktor Testing](https://ktor.io/docs/client-testing.html)
 
