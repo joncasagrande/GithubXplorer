@@ -19,7 +19,7 @@ class MainActivityViewModel @Inject constructor(
     private val _eventData = MutableLiveData<EventState>()
     val eventData: LiveData<EventState> = _eventData
 
-    fun getDogs() {
+    fun loadRepos() {
         _eventData.value = EventState(showLoading = true)
         viewModelScope.launch {
             _eventData.value = when (val result = useCase.getRepos()) {

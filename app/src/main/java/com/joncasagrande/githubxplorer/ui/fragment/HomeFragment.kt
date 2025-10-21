@@ -11,6 +11,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -38,55 +39,62 @@ fun HomeFragment(
     val eventState = viewModel.eventData.observeAsState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     LaunchedEffect(key1 = Unit) {
-        viewModel.getDogs()
+        viewModel.loadRepos()
     }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = { GitToolbar("Github Repositories", scrollBehavior) }
     ) { innerPadding ->
-
-        when {
-            eventState.value?.listDogUi?.isNotEmpty() == true -> {
-                Column(modifier = Modifier.padding(innerPadding)) {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        contentPadding = PaddingValues(8.dp)
-                    ) {
-                        val dogList: List<GithubUi> = eventState.value?.listDogUi ?: emptyList()
-                        items(dogList.size) { index ->
-                            dogList.let {
-                                Card(
-                                    modifier = Modifier
-                                        .padding(4.dp)
-                                        .clickable(
-                                            onClick = { clickListener.invoke(it[index]) },
-                                        )
-                                ) {
-                                    GithubCard(it[index])
+        PullToRefreshBox(
+            isRefreshing = eventState.value?.showLoading == true,
+            onRefresh = {
+                viewModel.loadRepos()
+            },
+            modifier = Modifier.padding(innerPadding)
+        ) {
+            when {
+                eventState.value?.listDogUi?.isNotEmpty() == true -> {
+                    Column{
+                        LazyVerticalGrid(
+                            columns = GridCells.Fixed(2),
+                            contentPadding = PaddingValues(8.dp)
+                        ) {
+                            val dogList: List<GithubUi> = eventState.value?.listDogUi ?: emptyList()
+                            items(dogList.size) { index ->
+                                dogList.let {
+                                    Card(
+                                        modifier = Modifier
+                                            .padding(4.dp)
+                                            .clickable(
+                                                onClick = { clickListener.invoke(it[index]) },
+                                            )
+                                    ) {
+                                        GithubCard(it[index])
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            eventState.value?.showError?.isNotEmpty() == true -> {
-                Column(modifier = Modifier.padding(innerPadding)) {
-                    ErrorCompose(eventState.value?.showError.orEmpty())
+                eventState.value?.showError?.isNotEmpty() == true -> {
+                    Column() {
+                        ErrorCompose(eventState.value?.showError.orEmpty())
+                    }
                 }
-            }
 
-            eventState.value?.isEmpty == true -> {
-                Column(modifier = Modifier.padding(innerPadding)) {
-                    EmptyListCompose(getString(LocalContext.current, R.string.empty_list))
+                eventState.value?.isEmpty == true -> {
+                    Column() {
+                        EmptyListCompose(getString(LocalContext.current, R.string.empty_list))
+                    }
                 }
-            }
 
 
-            eventState.value?.showLoading == true -> {
-                Column(modifier = Modifier.padding(innerPadding)) {
-                    LoadingComponent()
+                eventState.value?.showLoading == true -> {
+                    Column() {
+                        LoadingComponent()
+                    }
                 }
             }
         }
