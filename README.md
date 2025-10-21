@@ -15,6 +15,9 @@
 	- Shows the selected repo’s info: name, description, statistics like stars and forks, last update, and anything else you find relevant.
 	- App-bar title = repo name (ellipsised if too long).
 	 [DONE with ai help]
+Pront used
+"can you create a detail page in android compose with this fields 
+- Shows the selected repo’s info: name, description, statistics like stars and forks, last update, and anything else you find relevant."
 
 3. Search by language **OR** sort options (pick one)
 	<ol type="a">
