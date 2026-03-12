@@ -20,12 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.getString
-import com.example.doglistapp.ui.component.EmptyListCompose
-import com.example.doglistapp.ui.component.ErrorCompose
-import com.example.doglistapp.ui.component.LoadingComponent
 import com.joncasagrande.githubxplorer.R
+import com.joncasagrande.githubxplorer.ui.components.EmptyListCompose
+import com.joncasagrande.githubxplorer.ui.components.ErrorCompose
 import com.joncasagrande.githubxplorer.ui.components.GitToolbar
 import com.joncasagrande.githubxplorer.ui.components.GithubCard
+import com.joncasagrande.githubxplorer.ui.components.LoadingComponent
 import com.joncasagrande.githubxplorer.ui.model.GithubUi
 import com.joncasagrande.githubxplorer.ui.viewmodel.MainActivityViewModel
 

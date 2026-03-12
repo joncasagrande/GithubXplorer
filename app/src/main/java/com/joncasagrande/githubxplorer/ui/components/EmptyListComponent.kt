@@ -1,4 +1,4 @@
-package com.example.doglistapp.ui.component
+package com.joncasagrande.githubxplorer.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
